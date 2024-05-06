@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend-todo
-          image: ghcr.io/tfk70/testtodo:1.0
+          image: ghcr.io/ol2969/test-backend:1.1
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -30,7 +30,7 @@ spec:
               protocol: TCP
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: do
+              value: docker
             - name: DATABASE_USER
               value: program
             - name: DATABASE_PASSWORD
