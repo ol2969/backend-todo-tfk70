@@ -34,9 +34,16 @@ project {
 
     vcsRoot(Tfk70backend)
 
-    buildType(Build1)
     buildType(Build)
+    buildType(Build1)
 }
+
+object Tfk70backend : GitVcsRoot({
+    name = "TFK70 backend"
+    url = "https://github.com/TFK70/backend-todo-list.git"
+    branch = "refs/heads/master"
+    branchSpec = "refs/heads/*"
+})
 
 object Build : BuildType({
     name = "Build"
@@ -129,11 +136,4 @@ object Build1 : BuildType({
         perfmon {
         }
     }
-})
-
-object Tfk70backend : GitVcsRoot({
-    name = "TFK70 backend"
-    url = "https://github.com/TFK70/backend-todo-list.git"
-    branch = "refs/heads/master"
-    branchSpec = "refs/heads/*"
 })
