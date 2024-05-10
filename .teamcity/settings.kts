@@ -82,15 +82,16 @@ object Build : BuildType({
             }
         }
         script {
-            name = "Run Postgres"
-            id = "simpleRunner"
-            enabled = false
-            scriptContent = "docker compose -f docker-compose.yml up -d"
-        }
-        script {
-            name = "Run app"
+            name = "Apply specs"
             id = "Apply_specs"
-            scriptContent = "docker run -d --name backend -p 8080:8080 -e SPRING_PROFILES_ACTIVE=docker -e DATABASE_USER=program -e DATABASE_PASSWORD=test -e DATABASE_PORT=5432 -e DATABASE_NAME=todo_list -e DATABASE_URL=postgres --network backend-todo-tfk70_default ghcr.io/ol2969/test-backend:1.1"
+            scriptContent = """
+                kubectl apply -f deployment/common/namespace.yml
+                kubectl apply -f deployment/postgres/postgres.yml
+                kubectl apply -f deployment/postgres/postgres-service.yml
+                kubectl apply -f deployment/backend/deployment.yml
+                kubectl apply -f deployment/backend/service.yml
+                kubectl apply -f deployment/backend/gateway.yml
+            """.trimIndent()
         }
     }
 
@@ -114,16 +115,15 @@ object Build1 : BuildType({
 
     steps {
         script {
-            name = "Apply specs"
+            name = "Run Postgres"
+            id = "simpleRunner"
+            enabled = false
+            scriptContent = "docker compose -f docker-compose.yml up -d"
+        }
+        script {
+            name = "Run app"
             id = "Apply_specs"
-            scriptContent = """
-                kubectl apply -f deployment/common/namespace.yml
-                kubectl apply -f deployment/postgres/postgres.yml
-                kubectl apply -f deployment/postgres/postgres-service.yml
-                kubectl apply -f deployment/backend/deployment.yml
-                kubectl apply -f deployment/backend/service.yml
-                kubectl apply -f deployment/backend/gateway.yml
-            """.trimIndent()
+            scriptContent = "docker run -d --name backend -p 8080:8080 -e SPRING_PROFILES_ACTIVE=docker -e DATABASE_USER=program -e DATABASE_PASSWORD=test -e DATABASE_PORT=5432 -e DATABASE_NAME=todo_list -e DATABASE_URL=postgres --network backend-todo-tfk70_default ghcr.io/ol2969/test-backend:1.1"
         }
     }
 
