@@ -40,7 +40,7 @@ project {
 
 object Tfk70backend : GitVcsRoot({
     name = "TFK70 backend"
-    url = "https://github.com/TFK70/backend-todo-list.git"
+    url = "https://github.com/ol2969/backend-todo-tfk70.git"
     branch = "refs/heads/master"
     branchSpec = "refs/heads/*"
 })
