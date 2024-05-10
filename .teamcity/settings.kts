@@ -107,7 +107,7 @@ object Build : BuildType({
 })
 
 object Build1 : BuildType({
-    name = "Deploy into minikube"
+    name = "Unused steps"
 
     vcs {
         root(DslContext.settingsRoot)
@@ -122,7 +122,8 @@ object Build1 : BuildType({
         }
         script {
             name = "Run app"
-            id = "Apply_specs"
+            id = "Run_app"
+            enabled = false
             scriptContent = "docker run -d --name backend -p 8080:8080 -e SPRING_PROFILES_ACTIVE=docker -e DATABASE_USER=program -e DATABASE_PASSWORD=test -e DATABASE_PORT=5432 -e DATABASE_NAME=todo_list -e DATABASE_URL=postgres --network backend-todo-tfk70_default ghcr.io/ol2969/test-backend:1.1"
         }
     }
